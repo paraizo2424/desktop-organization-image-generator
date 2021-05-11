@@ -25,6 +25,46 @@
     </footer>
 
     <script type="text/javascript">
+      // canvasのサイズを変更
+      canvas.width = 2560;
+      canvas.height = 1600;
+      var ctx = canvas.getContext("2d");
+
+      // キャンバスを白で初期化
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // アイコンの個数
+      // windows10 表示サイズ100%、解像度1920*1080、中アイコン => W19個、H10個、下余白 80px
+      const ICON_WIDTH_COUNT = 11;
+      const ICON_HEIGHT_COUNT = 7;
+
+      // セルのサイズ
+      const TOP_MARGIN = 35; // 上余白
+      const LEFT_MARGIN = 155; // 左余白
+      const BOTTOM_MARGIN = 140; // 下余白
+      const CELL_W = Math.round(
+        (canvas.width - LEFT_MARGIN) / ICON_WIDTH_COUNT
+      );
+      const CELL_H = Math.round(
+        (canvas.height - TOP_MARGIN - BOTTOM_MARGIN) / ICON_HEIGHT_COUNT
+      );
+
+      // 配列用意
+      cells = new Array();
+      for (let i = 0; i < ICON_HEIGHT_COUNT; i++) {
+        cells.push(new Array(ICON_WIDTH_COUNT));
+        for (let j = 0; j < ICON_WIDTH_COUNT; j++) {
+          cells[i][j] = {
+            x: CELL_W * j + LEFT_MARGIN,
+            y: CELL_H * i + TOP_MARGIN,
+            w: CELL_W,
+            h: CELL_H,
+            color: "white",
+          };
+        }
+      }
+
       //ロード時に描画関数(draw)を呼ぶ
       window.addEventListener("load", function () {
         draw();
@@ -34,46 +74,6 @@
         var canvas = document.getElementById("canvas");
 
         if (canvas.getContext) {
-          // canvasのサイズを変更
-          canvas.width = 2560;
-          canvas.height = 1600;
-          var ctx = canvas.getContext("2d");
-
-          // キャンバスを白で初期化
-          ctx.fillStyle = "white";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-          // アイコンの個数
-          // windows10 表示サイズ100%、解像度1920*1080、中アイコン => W19個、H10個、下余白 80px
-          const ICON_WIDTH_COUNT = 11;
-          const ICON_HEIGHT_COUNT = 7;
-
-          // セルのサイズ
-          const TOP_MARGIN = 35; // 上余白
-          const LEFT_MARGIN = 155; // 左余白
-          const BOTTOM_MARGIN = 140; // 下余白
-          const CELL_W = Math.round(
-            (canvas.width - LEFT_MARGIN) / ICON_WIDTH_COUNT
-          );
-          const CELL_H = Math.round(
-            (canvas.height - TOP_MARGIN - BOTTOM_MARGIN) / ICON_HEIGHT_COUNT
-          );
-
-          // 配列用意
-          cells = new Array();
-          for (let i = 0; i < ICON_HEIGHT_COUNT; i++) {
-            cells.push(new Array(ICON_WIDTH_COUNT));
-            for (let j = 0; j < ICON_WIDTH_COUNT; j++) {
-              cells[i][j] = {
-                x: CELL_W * j + LEFT_MARGIN,
-                y: CELL_H * i + TOP_MARGIN,
-                w: CELL_W,
-                h: CELL_H,
-                color: "white",
-              };
-            }
-          }
-
           for (let i = 0; i < ICON_HEIGHT_COUNT; i++) {
             for (let j = 0; j < ICON_WIDTH_COUNT; j++) {
               ctx.fillStyle = cells[i][j].color;
