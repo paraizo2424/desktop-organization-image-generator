@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>デスクトップ整理画像ジェネレーター</title>
   </head>
   <body>
@@ -12,11 +13,39 @@
       <h1>デスクトップ整理画像ジェネレーター</h1>
     </header>
 
-    <main></main>
+    <main>
+      <canvas id="canvas" width="640" height="400">
+        キャンバスに対応したブラウザを使用してください
+      </canvas>
+    </main>
 
     <footer>
       <h3>デスクトップ整理画像ジェネレーター</h3>
       <p class="copyright">COPYRIGHT 2021 nishi</p>
     </footer>
+
+    <script type="text/javascript">
+      //ロード時に描画関数(draw)を呼ぶ
+      window.addEventListener("load", function () {
+        draw();
+      });
+
+      function draw() {
+        var canvas = document.getElementById("canvas");
+        if (canvas.getContext) {
+          var ctx = canvas.getContext("2d");
+          ctx.strokeRect(100, 50, 120, 60);
+          ctx.fillRect(240, 50, 120, 60);
+
+          //赤い四角形
+          ctx.fillStyle = "red";
+          ctx.fillRect(380, 50, 120, 60);
+
+          //青い線で描画
+          ctx.strokeStyle = "#0000ff";
+          ctx.strokeRect(100, 140, 120, 60);
+        }
+      }
+    </script>
   </body>
 </html>
